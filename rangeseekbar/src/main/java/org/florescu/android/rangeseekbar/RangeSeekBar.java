@@ -68,6 +68,11 @@ public class RangeSeekBar<T extends Number> extends ImageView {
      */
     public static final int INVALID_POINTER_ID = 255;
 
+    /**
+     * Default thumbnail margin
+     */
+    public static final int DEFAULT_THUMBNAIL_MARGIN = 1;
+
     // Localized constants from MotionEvent for compatibility
     // with API < 8 "Froyo".
     public static final int ACTION_POINTER_INDEX_MASK = 0x0000ff00, ACTION_POINTER_INDEX_SHIFT = 8;
@@ -571,7 +576,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         }
         int thumbYOffset = 0;
         if (mThumbBelowSeekBar) {
-            thumbYOffset =  thumbImage.getHeight() / 2;
+            thumbYOffset =  thumbImage.getHeight() / 2 + PixelUtil.dpToPx(getContext(), DEFAULT_THUMBNAIL_MARGIN);
         }
         int height = thumbImage.getHeight()
                 + (!mShowTextAboveThumbs ? 0 : PixelUtil.dpToPx(getContext(), HEIGHT_IN_DP + thumbYOffset))
@@ -724,7 +729,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
 
         int thumbYOffset = 0;
         if (mThumbBelowSeekBar) {
-            thumbYOffset = (int)mThumbHalfHeight;
+            thumbYOffset = (int)mThumbHalfHeight + PixelUtil.dpToPx(getContext(), DEFAULT_THUMBNAIL_MARGIN);;
         }
         canvas.drawBitmap(buttonToDraw, screenCoord - mThumbHalfWidth,
                 mTextOffset + PixelUtil.dpToPx(getContext(), thumbYOffset),
