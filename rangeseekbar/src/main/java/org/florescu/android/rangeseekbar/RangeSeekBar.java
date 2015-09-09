@@ -133,9 +133,9 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     private Path mTranslatedThumbShadowPath = new Path();
     private Matrix mThumbShadowMatrix = new Matrix();
 
-    private int mThumbYOffset;
     private boolean mCornerBorder;
     private int mMinMaxTextColor;
+    private boolean mThumbBelowSeekBar;
 
     public RangeSeekBar(Context context) {
         super(context);
@@ -226,9 +226,9 @@ public class RangeSeekBar<T extends Number> extends ImageView {
                 mThumbShadowYOffset = a.getDimensionPixelSize(R.styleable.RangeSeekBar_thumbShadowYOffset, defaultShadowYOffset);
                 mThumbShadowBlur = a.getDimensionPixelSize(R.styleable.RangeSeekBar_thumbShadowBlur, defaultShadowBlur);
 
-                mThumbYOffset = a.getDimensionPixelSize(R.styleable.RangeSeekBar_thumbYOffset, 0);
                 mCornerBorder = a.getBoolean(R.styleable.RangeSeekBar_cornerBorder, false);
                 mMinMaxTextColor = a.getColor(R.styleable.RangeSeekBar_minMaxTextColor, Color.WHITE);
+                mThumbBelowSeekBar = a.getBoolean(R.styleable.RangeSeekBar_thumbBelowSeekBar, false);
             } finally {
                 a.recycle();
             }
@@ -569,9 +569,12 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec)) {
             width = MeasureSpec.getSize(widthMeasureSpec);
         }
-
+        int thumbYOffset = 0;
+        if (mThumbBelowSeekBar) {
+            thumbYOffset =  thumbImage.getHeight() / 2;
+        }
         int height = thumbImage.getHeight()
-                + (!mShowTextAboveThumbs ? 0 : PixelUtil.dpToPx(getContext(), HEIGHT_IN_DP + mThumbYOffset))
+                + (!mShowTextAboveThumbs ? 0 : PixelUtil.dpToPx(getContext(), HEIGHT_IN_DP + thumbYOffset))
                 + (mThumbShadow ? mThumbShadowYOffset + mThumbShadowBlur : 0);
         if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(heightMeasureSpec)) {
             height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
@@ -610,7 +613,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         mRect.left = padding;
         mRect.right = getWidth() - padding;
         if (mCornerBorder) {
-            canvas.drawRoundRect(mRect, PixelUtil.dpToPx(getContext(), 2), getHeight()/2, paint);
+            canvas.drawRoundRect(mRect, PixelUtil.dpToPx(getContext(), 5), getHeight()/2, paint);
         } else {
             canvas.drawRect(mRect, paint);
         }
@@ -632,7 +635,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
 
         paint.setColor(colorToUseForButtonsAndHighlightedLine);
         if (mCornerBorder) {
-            canvas.drawRoundRect(mRect, PixelUtil.dpToPx(getContext(), 2), getHeight()/2, paint);
+            canvas.drawRoundRect(mRect, PixelUtil.dpToPx(getContext(), 5), getHeight()/2, paint);
         } else {
             canvas.drawRect(mRect, paint);
         }
@@ -719,8 +722,12 @@ public class RangeSeekBar<T extends Number> extends ImageView {
             buttonToDraw = pressed ? thumbPressedImage : thumbImage;
         }
 
+        int thumbYOffset = 0;
+        if (mThumbBelowSeekBar) {
+            thumbYOffset = (int)mThumbHalfHeight;
+        }
         canvas.drawBitmap(buttonToDraw, screenCoord - mThumbHalfWidth,
-                mTextOffset + PixelUtil.dpToPx(getContext(), mThumbYOffset),
+                mTextOffset + PixelUtil.dpToPx(getContext(), thumbYOffset),
                 paint);
     }
 

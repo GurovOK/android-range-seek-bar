@@ -49,8 +49,8 @@
 
         <!-- customization -->
         <attr name="minMaxTextColor" format="color"/>
-        <attr name="thumbYOffset" format="dimension"/>
         <attr name="cornerBorder" format="boolean"/>
+        <attr name="thumbBelowSeekBar" format="boolean"/>
     </declare-styleable>
 
 </resources>
