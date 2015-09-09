@@ -46,6 +46,11 @@
         <attr name="thumbShadowXOffset" format="dimension"/>
         <attr name="thumbShadowYOffset" format="dimension"/>
         <attr name="thumbShadowBlur" format="dimension"/>
+
+        <!-- customization -->
+        <attr name="minMaxTextColor" format="color"/>
+        <attr name="thumbYOffset" format="dimension"/>
+        <attr name="cornerBorder" format="boolean"/>
     </declare-styleable>
 
 </resources>

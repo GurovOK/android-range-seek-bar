@@ -29,7 +29,18 @@
 
         <org.florescu.android.rangeseekbar.RangeSeekBar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            rsb:barHeight="5dp"
+            rsb:absoluteMinValue="100"
+            rsb:absoluteMaxValue="1000"
+            rsb:thumbNormal="@drawable/range"
+            rsb:thumbPressed="@drawable/range"
+            rsb:thumbDisabled="@drawable/range"
+            rsb:activeColor="#8268c4"
+            rsb:defaultColor="@android:color/black"
+            rsb:thumbYOffset="10dp"
+            rsb:cornerBorder="true"
+            rsb:minMaxTextColor="#8268c4"/>
 
         <TextView
             android:layout_width="match_parent"
