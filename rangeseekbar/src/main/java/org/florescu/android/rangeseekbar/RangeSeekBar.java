@@ -73,6 +73,8 @@ public class RangeSeekBar<T extends Number> extends ImageView {
      */
     public static final int DEFAULT_THUMBNAIL_MARGIN = 1;
 
+    public static final float MIN_THUMB_TOUCH_AREA_WIDTH = 20f;
+
     // Localized constants from MotionEvent for compatibility
     // with API < 8 "Froyo".
     public static final int ACTION_POINTER_INDEX_MASK = 0x0000ff00, ACTION_POINTER_INDEX_SHIFT = 8;
@@ -778,7 +780,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
      * @return true if x-coordinate is in thumb range, false otherwise.
      */
     private boolean isInThumbRange(float touchX, double normalizedThumbValue) {
-        return Math.abs(touchX - normalizedToScreen(normalizedThumbValue)) <= mThumbHalfWidth;
+        return Math.abs(touchX - normalizedToScreen(normalizedThumbValue)) <= Math.max(mThumbHalfWidth, MIN_THUMB_TOUCH_AREA_WIDTH);
     }
 
     /**
